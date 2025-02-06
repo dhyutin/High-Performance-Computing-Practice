@@ -1,2 +1,24 @@
 
 *.json
+
+# Ignore C++ object files and compiled binaries
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.a
+*.lib
+
+# Ignore executable files
+*.out
+*.exe
+
+# Ignore OpenMP-related temporary files (if any)
+*.gch
+*.pch
+
+# Ignore Moi executable files (if applicable)
+moi
+moi.exe
+moi.out
