@@ -2,6 +2,8 @@
 #include <omp.h>
 #include <chrono>
 
+using namespace std;
+
 
 #define N 100000000  // Large array size for noticeable time difference
 
