@@ -1,3 +1,5 @@
+// code to parallelize the function that calculates the dot product of two large arrays
+
 #include <iostream>
 #include <omp.h>
 #include <chrono>
