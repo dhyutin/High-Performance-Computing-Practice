@@ -29,14 +29,46 @@ int main(){
 
     //parallel
     // critical makes sure only one thread runs at a time, there by, reduces any race conditions
-    auto start_p = chrono::high_resolution_clock::now();
-    #pragma omp critical
-    {
-        #pragma omp parallel for reduction(+:c)
-        for(long long i = 0; i <N; i++){
-            c++;
-        }
+
+    // try with both critical and atomic
+
+
+    // auto start_p = chrono::high_resolution_clock::now();
+    // #pragma omp critical
+    // {
+    //     #pragma omp parallel for reduction(+:c)
+    //     for(long long i = 0; i <N; i++){
+    //         c++;
+    //     }
+    // }
+    // int threads = 0;
+
+    // #pragma omp parallel
+    // {
+    //     #pragma omp single
+    //     threads = omp_get_num_threads();
+    // }
+    // auto end_p = chrono::high_resolution_clock::now();
+
+    // double parallel = chrono::duration<double>(end_p - start_p).count();
+
+
+
+   // Using #pragma omp atomic ensures that updates to sum_parallel happen atomically, 
+    //avoiding race conditions without needing a reduction clause. 
+
+
+auto start_p = chrono::high_resolution_clock::now();
+
+#pragma omp parallel
+{
+    #pragma omp for
+    for(long long i = 0; i < N; i++){
+        #pragma omp atomic
+        c++;
     }
+}
+
     int threads = 0;
 
     #pragma omp parallel
