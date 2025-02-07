@@ -49,6 +49,10 @@ int main(){
     cout << "PARALLEL" << endl;
     cout << "Time Taken: " <<parallel_time << " seconds" << endl;
 
+    // Memory deallocation
+    delete[] arr;
+
+
     return 0;
 
 
