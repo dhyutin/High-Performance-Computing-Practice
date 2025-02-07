@@ -6,7 +6,12 @@
 
 using namespace std;
 
+
+
 int main(){
+
+    // control the number of threads
+    omp_set_num_threads(4);
 
     long long N = 1000000;
 
@@ -32,9 +37,20 @@ int main(){
 
     //Parallel
     auto start_parallel = chrono::high_resolution_clock::now();
-    #pragma omp parallel for reduction(+:sum_parallel)
-    for(long long i =0; i < N; i++){
-        sum_parallel += arr[i];
+    int threads_num = 0;
+    #pragma omp parallel
+    {
+
+        #pragma omp single
+        {
+            threads_num = omp_get_num_threads();
+            cout<<"Number of threads: "<<threads_num<<endl;       
+        }
+        #pragma omp parallel for reduction(+:sum_parallel)
+        for(long long i =0; i < N; i++){
+            sum_parallel += arr[i];
+        }
+
     }
 
     auto end_parallel = chrono::high_resolution_clock::now();
@@ -49,6 +65,7 @@ int main(){
     cout << "PARALLEL" << endl;
     cout << "Time Taken: " <<parallel_time << " seconds" << endl;
 
+    // cout<<"Number of threads used: "<<threads_num<<endl;
     // Memory deallocation
     delete[] arr;
 
